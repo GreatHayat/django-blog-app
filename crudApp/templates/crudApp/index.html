@@ -8,7 +8,7 @@
       <div class="card mb-" style="max-width: 1180px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <a href="{% url 'post_detail' post.id %}">
+          <a href="{% url 'post_detail' post.slug %}">
             <img src={{ post.feature_image.url }} class="card-img img-responsive" alt="{{post.title}}">
           </a>
         </div>

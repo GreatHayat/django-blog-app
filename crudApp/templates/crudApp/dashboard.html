@@ -32,7 +32,7 @@
           </div>
           <div class="card-footer" id="test">
             <a href="{% url 'edit_post' post.id %}" class="btn btn-warning btn-sm float-left">Edit Post</a>
-            <form method="post" action="{% url 'test_data' post.id %}" class="js-post-delete-form">
+            <form method="post" action="{% url 'test_data' post.slug %}" class="js-post-delete-form">
               {% csrf_token %}
               <button type="button" id="delete-post" class="btn btn-danger btn-sm ml-2 float-left">Delete Post</button>
 
