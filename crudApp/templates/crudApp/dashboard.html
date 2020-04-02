@@ -27,12 +27,12 @@
           <img src="{{ post.feature_image.url }}" class="card-img-top" alt="{{post.title}}">
           <div class="card-body">
             <h5 class="card-title">{{post.title | title}}</h5>
-            <p class="card-text">{{post.post_content|slice:":100"}}... <a href="{% url 'post_detail' post.id %}">read more</a></p>
+            <p class="card-text">{{post.post_content|slice:":100"}}... <a href="{% url 'post-detail' post.slug %}">read more</a></p>
             <p class="card-text"><small class="text-muted">Published Date: {{post.created_date|naturalday}}</small></p>
           </div>
           <div class="card-footer" id="test">
-            <a href="{% url 'edit_post' post.id %}" class="btn btn-warning btn-sm float-left">Edit Post</a>
-            <form method="post" action="{% url 'test_data' post.slug %}" class="js-post-delete-form">
+            <a href="{% url 'edit-post' post.slug %}" class="btn btn-warning btn-sm float-left">Edit Post</a>
+            <form method="post" action="{% url 'test_data' post.id %}" class="js-post-delete-form">
               {% csrf_token %}
               <button type="button" id="delete-post" class="btn btn-danger btn-sm ml-2 float-left">Delete Post</button>
 

@@ -89,9 +89,9 @@ def add_new_post(request):
 
 
 @login_required(login_url="login")
-def edit_post(request, id):
+def edit_post(request, slug):
     try:
-        post = get_object_or_404(Post, id=id, created_by=request.user)
+        post = get_object_or_404(Post, slug=slug, created_by=request.user)
     except:
         return redirect('dashboard')
 
@@ -111,9 +111,9 @@ def edit_post(request, id):
 
 
 @login_required(login_url="login")
-def delete_post(request, id):
+def delete_post(request, slug):
     try:
-        post = get_object_or_404(Post, id=id, created_by=request.user)
+        post = get_object_or_404(Post, slug=slug, created_by=request.user)
     except:
         return redirect('dashboard')
     post.delete()

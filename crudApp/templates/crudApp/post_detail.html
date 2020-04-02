@@ -8,7 +8,7 @@
   <img src="{{ post.feature_image.url }}" class="card-img-top img-responsive" alt={{post.title}}>
   <div class="card-body">
     {% if request.user.is_authenticated and request.user == post.created_by %}
-      <a href="{% url 'edit_post' post.id %}" class="btn btn-warning btn-sm float-right">Edit Post</a>
+      <a href="{% url 'edit-post' post.slug %}" class="btn btn-warning btn-sm float-right">Edit Post</a>
     {% endif %}
     <h5 class="card-title">{{post.title}}</h5>
     <small class="text-muted">{{post.created_by}} | {{post.created_date | naturalday}}</small>
