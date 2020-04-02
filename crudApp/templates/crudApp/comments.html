@@ -1,0 +1,38 @@
+{% extends "crudApp/base.html" %}
+{% load custom_tags %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+{% include 'includes/form.html' %}
+<button type="submit" class="btn btn-success btn-sm">Comment</button>
+</form>
+
+
+{% for comment in comments %}
+<div class="media mt-5">
+  <img src="{{comment.user.user_profile.profile_image.url}}" width="50px;" class="mr-3" alt="...">
+  <div class="media-body">
+    <h5 class="mt-0">{{comment.user}} ({{replies.count}} replies)</h5>
+    {{comment.comment_msg}}
+    {% for reply in replies %}
+    <div class="media mt-3">
+      <a class="mr-3" href="#">
+        <img src="{{comment.user.user_profile.profile_image.url}}" width="50px;" class="mr-3" alt="...">
+      </a>
+      <div class="media-body">
+        <h5 class="mt-0">{{reply.user}}</h5>
+        {{reply.reply_msg }} | {{comment.id}}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
+
+{% for r in replies %}
+  <ul class="list-group">
+
+      <li class="list-group-item">{{r.reply_msg}}</li>
+  </ul>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "crudApp/base.html" %}
+{% load humanize %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+{% endblock %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+  <strong>Hello {{request.user}}!</strong> {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+<div class="row">
+  <div class="col-md-3">
+    {% include 'includes/sidebar.html' %}
+  </div>
+<div class="col-md-9">
+  <div class="row">
+    {% for post in posts %}
+      <div class="col-md-6 mb-2">
+        <div class="card">
+          <img src="{{ post.feature_image.url }}" class="card-img-top" alt="{{post.title}}">
+          <div class="card-body">
+            <h5 class="card-title">{{post.title | title}}</h5>
+            <p class="card-text">{{post.post_content|slice:":100"}}... <a href="{% url 'post_detail' post.id %}">read more</a></p>
+            <p class="card-text"><small class="text-muted">Published Date: {{post.created_date|naturalday}}</small></p>
+          </div>
+          <div class="card-footer" id="test">
+            <a href="{% url 'edit_post' post.id %}" class="btn btn-warning btn-sm float-left">Edit Post</a>
+            <form method="post" action="{% url 'test_data' post.id %}" class="js-post-delete-form">
+              {% csrf_token %}
+              <button type="button" id="delete-post" class="btn btn-danger btn-sm ml-2 float-left">Delete Post</button>
+
+            </form>
+            {% if post.published %}
+              <button class="btn btn-success btn-sm float-right">Published</button>
+            {% else %}
+              <button class="btn btn-secondary btn-sm float-right">Pending</button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  $(document).ready(function(){
+    var saveForm = function () {
+      var form = $(this);
+      $.ajax({
+        url: form.attr("action"),
+        data: form.serialize(),
+        type: form.attr("method"),
+        dataType: 'json',
+
+        success: function (data) {
+          if (data.post) {
+            form.parent().parent().remove();
+
+            Toastify({
+            text: data.post,
+            duration: 5000,
+            newWindow: false,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'right', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            }).showToast();
+            setTimeout(function(){// wait for 5 secs(2)
+           location.reload(); // then reload the page.(3)
+          }, 5000);
+          }
+          else {
+            Toastify({
+            text: "An Error Occured While Deleting This Post!",
+            duration: 5000,
+            newWindow: false,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: 'right', // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            }).showToast();
+          }
+        }
+      });
+      return false;
+    };
+    document.querySelectorAll('.js-post-delete-form').forEach(function(post){
+      post.addEventListener('click', saveForm)
+    })
+  })
+
+</script>
+{% endblock %}

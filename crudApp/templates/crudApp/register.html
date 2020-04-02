@@ -1,0 +1,26 @@
+{% extends "crudApp/base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+
+    <div class="card">
+      <div class="card-header">
+        <h6 class="display-6">Registration Form</h6>
+      </div>
+      <div class="card-body">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% include "includes/form.html" %}
+          <button type="submit" class="btn btn-success btn-block">Register</button>
+        </form>
+
+      </div>
+      <div class="card-footer">
+        <small class="small">Already Have An Account? <a href="{% url 'login' %}">Login</a></small>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

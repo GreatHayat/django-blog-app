@@ -1,0 +1,29 @@
+{% extends 'crudApp/base.html' %}
+{% load static %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-header">Add New Post</div>
+  <div class="card-body">
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="btn btn-primary btn-block">Add Post</button>
+    </form>
+  </div>
+  <div class="card-footer">
+    <a href="{% url 'index' %}" class="btn btn-primary ml-2">Back to Home Page</a>
+      <a href="{% url 'dashboard' %}" class="btn btn-info">Back to Dashboard</a>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block javascript %}
+  <script src="{% static 'js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock %}
