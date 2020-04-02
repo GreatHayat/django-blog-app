@@ -25,7 +25,7 @@ SECRET_KEY = 'nk8qf^lb-+k=r5-2mju6-%ou4_rje%i^4a+ris6!eg1)d-0&8+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["advancedjangoblogapp.herokuapp.com", "*"]
+ALLOWED_HOSTS = ["pythonwebschool.herokuapp.com", "*"]
 
 
 # Application definition
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'widget_tweaks',
-    # 'storages'
+    'storages'
 
 ]
 
