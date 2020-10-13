@@ -1,2 +1,5 @@
 #db.sqlite3
 .vscode/
+.bin/
+.lib/
+pypenv.cfg
